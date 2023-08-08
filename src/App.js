@@ -15,9 +15,9 @@ Wishlist:
 Additional features:
 1. Drag/Drop to change position of toolbar item in toolbar.
 2. Export div as jpg/png.
-3. Option to callibrate y-axis. 
+3. Option to callibrate y-axis.
 4. Label title for entire x & y axis.
-5. Chart legend.
+5. Chart legend. 
 7. Display percentages on piechart.
 9. Adjust label fonts
 
