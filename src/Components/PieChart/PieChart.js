@@ -74,7 +74,17 @@ function PieChart(props)
 
   function call_list(element)
   {
-    return <div style={element}>{element.text}</div>;
+    var temp = JSON.parse(JSON.stringify(element));
+  /*  if (temp.hasOwnProperty("left")) temp.left = 0.75*temp.left;
+    if (temp.hasOwnProperty("right")) temp.right = 0.75*temp.right;
+    if (temp.hasOwnProperty("top")) temp.top = 0.75*temp.top;
+    if (temp.hasOwnProperty("bottom")) temp.bottom = 0.75*temp.bottom;
+    */
+      return <>
+    <div style={element}>{element.text}</div>
+    <div style={temp}>{temp.text}</div>
+    </>;
+
   }
 } 
 

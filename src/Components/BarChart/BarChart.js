@@ -13,16 +13,16 @@ function BarChart(props)
     var bar_list = 0;
     bar_list = props.data.map(bar);
     var max_x = max/0.9;
-    //var x = [max_x*0.1,max_x*0.2,max_x*0.3,max_x*0.4,max_x*0.5,max_x*0.6,max_x*0.7,max_x*0.8,max_x*0.9,max_x];
-    var x = [max_x*0.2,max_x*0.4,max_x*0.6,max_x*0.8,max_x*0.9,max_x]; 
-    x = x.map(Math.round);
-    var x_axis = x.map(xlabels);
+    //var y = [max_x*0.1,max_x*0.2,max_x*0.3,max_x*0.4,max_x*0.5,max_x*0.6,max_x*0.7,max_x*0.8,max_x*0.9,max_x];
+    var y = [max_x*0.2,max_x*0.4,max_x*0.6,max_x*0.8,max_x*0.9,max_x]; 
+    y = y.map(Math.round);
+    var y_axis = y.map(ylabels);
 
     return(
         <div style={{width:'100%', height: '400px', position:'relative',
         borderLeft:'2px solid black', borderBottom:'2px solid black',marginLeft:'20px',marginTop:'50px'}}>
             {bar_list}
-            {x_axis}
+            {y_axis}
         </div>
     );
 
@@ -38,21 +38,24 @@ function BarChart(props)
         left = left + "px";
      
         var label_style = {position:'absolute',top:'400px',fontSize:'18px',left:left_label,width:bar_width+0.5*bar_margin,textAlign:'center'};
+        var label_value_style = {position:'absolute',bottom:height,fontSize:'18px',left:left_label,width:bar_width+0.5*bar_margin,
+                                 textAlign:'center',backgroundColor:"rgba(255,255,255,0.8)",zIndex:2};
         return(
             <>
             <div key = {data.id} style={{position:'absolute',backgroundColor:data.color,width:bar_width, 
             bottom:0,left:left,height:height}}>
             </div>
             <div style={label_style}>{data.text}</div>
+            <div style={label_value_style}>{data.value}</div>
             </>
         )
     }
 
-    function xlabels(data)
+    function ylabels(data)
     {
         var height = 400*(data/max_x);
         return(
-            <div style={{position:'absolute',bottom:height,left:'-20px',width:'100%',borderBottom:'1px dashed #000'}}>
+            <div style={{position:'absolute',bottom:height,left:'-20px',width:'100%',borderBottom:'1px dashed #000',zIndex:1}}>
               {data}
             </div>
             );

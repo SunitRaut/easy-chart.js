@@ -13,9 +13,17 @@ import DataToolBar from './Components/ToolBar/DataToolBar';
 /*
 Wishlist:
 Additional features:
-1. Drag/Drop to change position of toolbar item in toolbar
-2. Export div as jpg/png
-3. Option to callibrate y-axis
+1. Drag/Drop to change position of toolbar item in toolbar.
+2. Export div as jpg/png.
+3. Option to callibrate y-axis. 
+4. Label title for entire x & y axis.
+5. Chart legend.
+7. Display percentages on piechart.
+9. Adjust label fonts
+
+Done:
+1. Display value above each bar.
+2. Select random contrasting colors automatically when new data is added.
 */
 
 function App(props) { 
@@ -26,7 +34,7 @@ function App(props) {
     const [holeRadius,setHoleRadius] = useState(20);
     const [barWidth,setBarWidth] = useState(50);
     const [barMargin,setBarMargin] = useState(10);
-    const [key,setKey] = useState(2);
+    const [key,setKey] = useState(3);
 
     useEffect(() => {;
       var final_data = [...data];
@@ -84,7 +92,8 @@ function App(props) {
         new_data = [...data];
         //var new_id = parseInt(new_data[new_data.length-1].id)+1;
         var new_id = key;
-        new_data.push({id:new_id,color:'#f0f0f0',value:0,pos:new_data.length});
+        var color_new = selectColor(key);
+        new_data.push({id:new_id,color:color_new,value:0,pos:new_data.length});
         //console.log(new_data);
         for(let i=0;i<new_data.length;i++)
         {
@@ -198,7 +207,52 @@ function App(props) {
     );
 }
 
+function selectColor(number) {
+  const hue = number * 137.508; // use golden angle approximation
+  //return `hsl(${hue},50%,75%)`;
+  let h = hue%360;
+  let s = 50;
+  let l = 40;
+  console.log(h,s,l);
+  s /= 100;
+  l /= 100;
 
+  let c = (1 - Math.abs(2 * l - 1)) * s,
+      x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+      m = l - c/2,
+      r = 0,
+      g = 0, 
+      b = 0; 
+
+  if (0 <= h && h < 60) {
+    r = c; g = x; b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x; g = c; b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0; g = c; b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0; g = x; b = c;
+  } else if (240 <= h && h < 300) {
+    r = x; g = 0; b = c;
+  } else if (300 <= h && h < 360) {
+    r = c; g = 0; b = x;
+  }
+  // Having obtained RGB, convert channels to hex
+  r = Math.round((r + m) * 255).toString(16);
+  g = Math.round((g + m) * 255).toString(16);
+  b = Math.round((b + m) * 255).toString(16);
+
+  // Prepend 0s, if necessary
+  if (r.length == 1)
+    r = "0" + r;
+  if (g.length == 1)
+    g = "0" + g;
+  if (b.length == 1)
+    b = "0" + b;
+  console.log(r,g,b);
+  return "#" + r + g + b;
+
+}
 
 export default App;
 
